@@ -299,9 +299,8 @@ import scala.math._
   val langPercent: Double = vs.map(_._1).filter(_ == langs.indexOf(langLabel)*langSpread).size * 100 /vs.size
   // percent of the questions in the most common language
   val clusterSize: Int    = vs.size
-  def findMedian(l:List[Int]): Int = { if (l.size % 2 == 0) (l((l.size/2) -1 ) + l(l.size/2))/2 else l((l.size-1)/2)   }
-  val medianScore: Int = findMedian(vs.toList.map( rec => ( rec._2) ).sortBy(k => k))
- 
+  
+ medianScore = ???
       (langLabel, langPercent, clusterSize, medianScore)
     }
 
