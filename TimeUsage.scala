@@ -38,8 +38,6 @@ spark.conf.set("spark.debug.maxToStringFields", 10)
     val headerColumns = rdd.first().split(",").to[List]
     // Compute the schema based on the first line of the CSV file
     val schema = dfSchema(headerColumns)
-
-    val encoder = RowEncoder(schema)
     
     val data =rdd.mapPartitionsWithIndex((i, it) => if (i == 0) it.drop(1) else it) // skip the header line
 .map(_.split(",").to[List])
@@ -256,15 +254,7 @@ import org.apache.spark.sql.functions._
 
     def roundf(d:Double) = (d * 10).round / 10d
 
-   summed
-      .groupByKey(x => (x.working, x.sex, x.age))
-      .agg(
-        avg(_.primaryNeeds),
-        avg(_.work),
-        avg(_.other)
-      ).map {
-      case ((working, sex, age), primaryNeeds, work, other) => TimeUsageRow(working, sex, age,  roundf(primaryNeeds), roundf(work), roundf(other))
-    }.orderBy('working, 'sex, 'age)
+   
     
           
     
